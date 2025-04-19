@@ -1,0 +1,20 @@
+[project]
+name = "devtool-project"
+version = "0.1.0"
+description = "A CLI tool to automate setup workflow."
+authors = [{name = "Felipe Seiji Inoue", email="felipeinoue@yahoo.com.br"}]
+readme = "README.md"
+requires-python = ">=3.8"
+license = { file = "LICENSE"}
+dependencies = [
+]
+
+[tool.setuptools]
+packages = ["devtool"]
+
+[project.scripts]
+devtool = "devtool.cli:app"
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
