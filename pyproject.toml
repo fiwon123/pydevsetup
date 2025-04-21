@@ -1,7 +1,7 @@
 [project]
-name = "devtool-project"
+name = "devsetup-project"
 version = "0.1.0"
-description = "A CLI tool to automate setup workflow."
+description = "A CLI tool to setup development environments."
 authors = [{name = "Felipe Seiji Inoue", email="felipeinoue@yahoo.com.br"}]
 readme = "README.md"
 requires-python = ">=3.8"
@@ -10,10 +10,10 @@ dependencies = [
 ]
 
 [tool.setuptools]
-packages = ["devtool"]
+packages = ["devsetup"]
 
 [project.scripts]
-devtool = "devtool.cli:app"
+devsetup = "devsetup.__main__:app"
 
 [build-system]
 requires = ["setuptools", "wheel"]
