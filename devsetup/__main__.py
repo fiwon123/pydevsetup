@@ -1,5 +1,6 @@
 from devsetup import typer
 from devsetup.cli import git, ssh, editor
+from devsetup.config import load_config
 
 app = typer.Typer()
 

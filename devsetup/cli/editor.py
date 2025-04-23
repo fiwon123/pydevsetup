@@ -1,9 +1,9 @@
-from devsetup import typer, resources, subprocess, run_command
+from devsetup import typer, resources, run_command
 
 app = typer.Typer()
 
 @app.command()
-def editor():
+def setup():
     """Set up editor preferences"""
-    with resources.path("devsetup", "scripts/editor_setup.sh") as p:
+    with resources.path("devsetup.scripts", "setup_editor.sh") as p:
         run_command(["bash", str(p)])
