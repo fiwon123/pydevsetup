@@ -1,0 +1,8 @@
+[common]
+git_bash = "C:/git/git-bash.exe" # windows
+
+[git]
+host = "github.com"
+user_name = "Your Name"
+user_email = "you@example.com"
+ssh_repository = "git@github.com:username/repository.git"
