@@ -1,12 +1,13 @@
 #!/bin/bash
 
 SSH_KEY="$HOME/.ssh/id_ed25519"
-
 # Check if SSH key already exists
-if [ -f "$SSH_KEY" ]; then
+if [[ -f "$SSH_KEY" && "$2" == "False" ]]; then
     echo "✅ SSH key already exists at $SSH_KEY"
+    echo "Press enter to continue..."
+    read
 else
-    read -p "Enter your email for SSH key comment: " email
+    email=$1
 
     echo "🔐 Generating a secure SSH key (ed25519)..."
     ssh-keygen -t ed25519 -C "$email" -f "$SSH_KEY"
@@ -22,4 +23,6 @@ else
     echo ""
     cat "$SSH_KEY.pub"
     echo ""
+    echo "Press enter to continue..."
+    read
 fi
