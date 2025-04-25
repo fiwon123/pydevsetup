@@ -4,6 +4,9 @@ SSH_KEY="$HOME/.ssh/id_ed25519"
 # Check if SSH key already exists
 if [[ -f "$SSH_KEY" && "$2" == "False" ]]; then
     echo "✅ SSH key already exists at $SSH_KEY"
+    echo ""
+    cat "$SSH_KEY.pub"
+    echo ""
     echo "Press enter to continue..."
     read
 else
@@ -19,7 +22,7 @@ else
     ssh-add "$SSH_KEY"
 
     echo "✅ SSH key generated and added to ssh-agent!"
-    echo "📋 Public key (add this to GitHub/GitLab):"
+    echo "📋 Public key (add this to GitHub, GitLab or any other platform.):"
     echo ""
     cat "$SSH_KEY.pub"
     echo ""
