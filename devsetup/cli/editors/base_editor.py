@@ -6,12 +6,11 @@ class BaseEditor(ABC):
         super().__init__()
 
     @abstractmethod
-    def get_path(self):
-        pass
-
-    @abstractmethod
     def get_script(self):
         pass
+
+    def get_path(self):
+        return "devsetup.scripts.editors"
 
     def setup(self):
         with resources.path(self.get_path(), self.get_script()) as p:
