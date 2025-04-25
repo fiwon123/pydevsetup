@@ -1,6 +1,5 @@
-from devsetup import typer, resources, run_command
+from devsetup import typer
 from devsetup.cli.git_repositories.registry_git_repository import get_git_repository
-from devsetup.globals import CONFIG
 
 app = typer.Typer()
 
