@@ -1,9 +1,10 @@
 import os
 from pathlib import Path
+import shutil
 import typer
 from rich.console import Console
 from rich.panel import Panel
-from globals import get_logger
+from devsetup.globals import get_logger
 
 console = Console()
 
@@ -46,9 +47,11 @@ def get_path(path: str):
 def join_paths(base_path: str, sub_path: str):
     return os.path.join(base_path, sub_path)
 
-def dir_path(filepath: str):
+def path_exists(filepath: str):
     if os.path.exists(filepath):
-        return filepath
-    else:
-        error_box("Missing argument '[bold red]FILEPATH[/]'.")
-        print_error(f"File '{filepath}' not found.")
+        return True
+    
+    return False
+
+def copy_from_to(src, dest):
+    shutil.copyfile(src, dest)
