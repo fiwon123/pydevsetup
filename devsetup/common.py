@@ -13,7 +13,6 @@ def run_command(command: list):
         
         # GIT Bash
         git_bash = CONFIG["common"]["git_bash"]
-        print(git_bash)
         if not git_bash:
             raise RuntimeError("Could not find Git Bash; please install Git for Windows.")
         # Pass the script path directly to Git Bash
