@@ -19,7 +19,8 @@ app.add_typer(ssh.app, name="ssh")
 app.add_typer(editor_manager.app, name="editor")
 
 @app.command()
-def init():
+def init(is_open:bool = typer.Option(False, "--open", help="Open folder location."),
+         dry_run: bool = typer.Option(False, "--dr", help="Preview")):
     set_logger(Logger())
 
     if platform.system() == "Windows":
@@ -31,6 +32,10 @@ def init():
         path = join_paths(Path.home(), ".config/devsetup")
 
     create_dir(path)
+
+    if (is_open):
+        os.startfile(path)
+        return
 
     path = join_paths(path, "config.toml")
     if not path_exists(path):
@@ -56,6 +61,13 @@ def init():
         print_msg("Type your email:")
         ans = input()
         data["git"]["user_email"] = ans
+
+    if dry_run:
+        print_msg("-----------")
+        print_msg("Content:")
+        print_msg("")
+        print_msg(toml.dumps(data))
+        return
 
     with open(path,'w') as f:
         toml.dump(data, f)
