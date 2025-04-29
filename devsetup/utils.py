@@ -1,21 +1,22 @@
 import os
 from pathlib import Path
+import platform
 import shutil
 import typer
 from rich.console import Console
 from rich.panel import Panel
-from devsetup.globals import get_logger
+import devsetup.globals
 
 console = Console()
 
 def print_error(msg: str):
     typer.echo(f"❌ [ERROR] {msg}", err=True)
-    get_logger().save_log(f"[ERROR] {msg}")
+    devsetup.globals.get_logger().save_log(f"[ERROR] {msg}")
     raise typer.Exit(1)
 
 def print_warning(msg: str):
     typer.echo(f"⚠️  [WARNING] {msg}")
-    get_logger().save_log(f"[WARNING] {msg}")
+    devsetup.globals.get_logger().save_log(f"[WARNING] {msg}")
 
 def print_msg(msg: str, enable_icon: bool = False):
     if enable_icon:
@@ -23,7 +24,7 @@ def print_msg(msg: str, enable_icon: bool = False):
     else:
         typer.echo(msg)
 
-    get_logger().save_log(msg)
+    devsetup.globals.get_logger().save_log(msg)
 
 def error_box(message: str):
     console.print(Panel(message, title="[red]Error[/red]", border_style="red"))
@@ -55,3 +56,15 @@ def path_exists(filepath: str):
 
 def copy_from_to(src, dest):
     shutil.copyfile(src, dest)
+
+def get_platform_home_path():
+    path = ""
+    if platform.system() == "Windows":
+        path = os.getenv("LOCALAPPDATA")
+        create_dir(path)
+    elif platform.system() == "Darwin":
+        path = join_paths(Path.home(), "Library")
+    elif platform.system() == "Linux":
+        path = join_paths(Path.home(), ".config")
+
+    return path

@@ -1,12 +1,10 @@
 import os
-from pathlib import Path
-import platform
 from devsetup import typer
 from devsetup.cli import ssh
 from devsetup.cli.editors import editor_manager
 from devsetup.cli.git_repositories import git_repository_manager
 from devsetup.logger import Logger
-from devsetup.utils import copy_from_to, create_dir, join_paths, path_exists, print_msg
+from devsetup.utils import copy_from_to, create_dir, get_platform_home_path, join_paths, path_exists, print_msg
 from devsetup.globals import set_logger
 import tomllib 
 import toml
@@ -23,14 +21,8 @@ def init(is_open:bool = typer.Option(False, "--open", help="Open folder location
          dry_run: bool = typer.Option(False, "--dr", help="Preview")):
     set_logger(Logger())
 
-    if platform.system() == "Windows":
-        path = join_paths(os.getenv("LOCALAPPDATA"), "devsetup")
-        create_dir(path)
-    elif platform.system() == "Darwin":
-        path = join_paths(Path.home(), "Library/devsetup")
-    elif platform.system() == "Linux":
-        path = join_paths(Path.home(), ".config/devsetup")
-
+    path = get_platform_home_path()
+    path = join_paths(path, "devsetup")
     create_dir(path)
 
     if (is_open):
