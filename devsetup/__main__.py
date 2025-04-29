@@ -2,7 +2,8 @@ from devsetup import typer
 from devsetup.cli import ssh
 from devsetup.cli.editors import editor_manager
 from devsetup.cli.git_repositories import git_repository_manager
-from devsetup.config import load_config
+from devsetup.logger import Logger
+from globals import set_logger
 
 app = typer.Typer()
 
@@ -12,4 +13,5 @@ app.add_typer(ssh.app, name="ssh")
 app.add_typer(editor_manager.app, name="editor")
 
 if __name__ == "__main__":
+    set_logger(Logger())
     app()
