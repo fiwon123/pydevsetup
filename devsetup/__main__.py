@@ -8,6 +8,8 @@ from devsetup.cli.git_repositories import git_repository_manager
 from devsetup.logger import Logger
 from devsetup.utils import copy_from_to, create_dir, join_paths, path_exists, print_msg
 from devsetup.globals import set_logger
+import tomllib 
+import toml
 
 app = typer.Typer()
 
@@ -31,13 +33,32 @@ def init():
     create_dir(path)
 
     path = join_paths(path, "config.toml")
-    if path_exists(path):
-        print_msg("File config.toml already exists!")
-    else:
+    if not path_exists(path):
         print_msg("Do you want create a sample config.toml? (Y/N)")
         ans = input()
         if (ans.upper() == "Y"):
             copy_from_to("devsetup/config_sample.toml",path)
+            print_msg(f"Config.toml file created: {path}")
+
+    with open(path,'rb') as f:
+        data = tomllib.load(f)
+
+    print_msg("Do you want to edit your username? (Y/N)")
+    ans = input()
+    if (ans.upper() == "Y"):
+        print_msg("Type your username:")
+        ans = input()
+        data["git"]["user_name"] = ans
+
+    print_msg("Do you want to edit your email? (Y/N)")
+    ans = input()
+    if (ans.upper() == "Y"):
+        print_msg("Type your email:")
+        ans = input()
+        data["git"]["user_email"] = ans
+
+    with open(path,'w') as f:
+        toml.dump(data, f)
     
 
 
