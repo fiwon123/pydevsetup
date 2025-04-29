@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from devsetup import typer, resources, run_command
 from devsetup.globals import CONFIG
+from devsetup.utils import print_msg
 
 class BaseGitRepository(ABC):
     def __init__(self):
@@ -13,10 +14,9 @@ class BaseGitRepository(ABC):
     def get_script(self):
         pass
         
-    def setup(self, is_repository:bool = typer.Option(False, "-repo", "--repository", help="Configure reposutiry to use SSH.")):
-        if is_repository:
-            with resources.path(self.get_path(), self.get_script()) as p:
-                run_command(["bash", str(p), CONFIG["git"]["ssh_repository"]])
-        else:
-            with resources.path("devsetup.scripts", "setup_git.sh") as p:
-                run_command(["bash", str(p), CONFIG["git"]["username"], CONFIG["git"]["email"]])
+    def setup(self):
+        print_msg("Type your git repository name: ")
+        repository_name = input("name: ")
+
+        with resources.path(self.get_path(), self.get_script()) as p:
+            run_command(["bash", str(p), CONFIG["git"]["username"], repository_name])
