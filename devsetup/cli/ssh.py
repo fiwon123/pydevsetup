@@ -8,5 +8,5 @@ app = typer.Typer()
 def setup(again:bool = typer.Option(False, "--again", help="never")):
     """Set up SSH"""
     set_logger(Logger())
-    with resources.path("devsetup.scripts", "setup_ssh.sh") as p:
-        run_command(["bash", str(p),  CONFIG["git"]["user_email"], str(again)])
+    with resources.path("devsetup.scripts", "ssh.sh") as p:
+        run_command(["bash", str(p),  CONFIG["git"]["email"], str(again)])

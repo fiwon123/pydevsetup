@@ -19,4 +19,4 @@ class BaseGitRepository(ABC):
                 run_command(["bash", str(p), CONFIG["git"]["ssh_repository"]])
         else:
             with resources.path("devsetup.scripts", "setup_git.sh") as p:
-                run_command(["bash", str(p), CONFIG["git"]["user_name"], CONFIG["git"]["user_email"]])
+                run_command(["bash", str(p), CONFIG["git"]["username"], CONFIG["git"]["email"]])

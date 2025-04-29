@@ -45,14 +45,14 @@ def init(is_open:bool = typer.Option(False, "--open", help="Open folder location
     if (ans.upper() == "Y"):
         print_msg("Type your username:")
         ans = input()
-        data["git"]["user_name"] = ans
+        data["git"]["username"] = ans
 
     print_msg("Do you want to edit your email? (Y/N)")
     ans = input()
     if (ans.upper() == "Y"):
         print_msg("Type your email:")
         ans = input()
-        data["git"]["user_email"] = ans
+        data["git"]["email"] = ans
 
     if dry_run:
         print_msg("-----------")

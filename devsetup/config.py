@@ -8,7 +8,8 @@ def load_config():
     file_path = join_paths(file_path, "devsetup/config.toml")
 
     if not path_exists(file_path):
-        raise FileNotFoundError(f"No config file found: {file_path}")
+        return
+        # raise FileNotFoundError(f"No config file found: {file_path}")
     
     with Path.open(file_path, "rb") as f:
         return tomllib.load(f)
